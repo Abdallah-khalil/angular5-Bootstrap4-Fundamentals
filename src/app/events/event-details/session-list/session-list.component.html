@@ -1,0 +1,26 @@
+<div class="col-md-10" *ngFor="let session of visibleSession">
+  <div class="card mb-3 ">
+    <ev-collapsible-card>
+      <div ev-card-title>
+
+          <h4 class="card-title">
+            <i class="fa fa-fire fa-lg text-danger"></i> {{ session.name }}</h4>
+          <h6 class="card-subtitle text-muted">{{session.presenter}}</h6>
+
+          </div>
+
+      <div ev-card-body>
+        <div class="card-body">
+          <p class="card-text">
+
+            <span>Duration: {{session.duration | duration }}</span>
+
+            <br />
+            <span>Level: {{session.level}}</span>
+          </p>
+          <p>{{session.abstract}}</p>
+        </div>
+      </div>
+    </ev-collapsible-card>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="container">
+  <img [src]="event?.imageUrl" [alt]="event?.name" class="event-image">
+  <div class="row">
+    <div class="col-10">
+      <h2>{{ event?.name | uppercase }}</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 col-12">
+      <p>
+        <strong> Date:</strong>{{ event?.date | date : 'dd/MM/yyyy' }}</p>
+      <p>
+        <strong>Time:</strong>{{ event?.time }}</p>
+      <p>
+        <strong>Price:</strong>{{ event?.price | currency : 'USD' : "code" }}</p>
+    </div>
+    <div class="col-sm-6 col-12">
+      <address>
+        <strong>Address:</strong>
+        <br/> {{ event?.location?.address }}
+        <br/> {{ event?.location?.city}}, {{event?.location?.country }}
+      </address>
+    </div>
+  </div>
+
+  <div class="row ">
+    <div class="col-2">
+      <h2 class="p-3">Sessions</h2>
+    </div>
+    <div class="col-8">
+      <div class="btn-toolbar" role="toolbar" aria-label="SessionsFilter">
+        <div class="btn-group" role="group" aria-label="SessionFilters">
+          <button type="button" [ngClass]="{'btn-primary':filterBy === 'all','btn-dark':filterBy !== 'all'} " (click)="filterBy = 'all'"
+            class="btn">All</button>
+          <button type="button" [ngClass]="{'btn-primary':filterBy === 'beginner','btn-dark':filterBy !== 'beginner'}" (click)="filterBy = 'beginner' "
+            class="btn">Beginner</button>
+          <button type="button" [ngClass]="{'btn-primary':filterBy === 'intermediate','btn-dark':filterBy !== 'intermediate'}" (click)="filterBy = 'intermediate' "
+            class="btn">Intermediate</button>
+          <button type="button" [ngClass]="{'btn-primary':filterBy === 'advanced','btn-dark':filterBy !== 'advanced' }" (click)=" filterBy = 'advanced' "
+            class="btn">Advanced</button>
+        </div>
+        <div class="btn-group pl-3" role="group" aria-label="SessionSort">
+          <button type="button" [ngClass]="{'btn-primary':sortBy === 'name','btn-dark':sortBy !== 'name'} " (click)="sortBy = 'name'"
+            class="btn">By Name</button>
+          <button type="button" [ngClass]="{'btn-primary':sortBy === 'votes','btn-dark':sortBy !== 'votes'}" (click)="sortBy = 'votes' "
+            class="btn">By Votes</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-dark" (click)="addSession()"> Add Session</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <ev-session-list *ngIf='!addMode' [filterBy]="filterBy" [sortBy]="sortBy" [sessions]="event?.sessions"></ev-session-list>
+  </div>
+  <ev-create-session *ngIf='addMode' (cancelNewSession)="cancelNewSession()" (saveNewSession)="saveNewSession($event)"></ev-create-session>
+
+</div>

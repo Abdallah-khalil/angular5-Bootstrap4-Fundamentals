@@ -1,0 +1,58 @@
+<div class="row">
+  <form autocomplete="off" class="col-md-12" novalidate [formGroup]="newSessionForm" (ngSubmit)="newSession(newSessionForm.value)">
+    <div class="card">
+      <div class="card-header">
+        Create Session
+      </div>
+      <div class="card-body">
+        <div class="form-group" [ngClass]="{'has-danger':newSessionForm.controls.name?.invalid && newSessionForm.controls.name?.dirty}">
+          <label for="sessionName">Session Name:</label>
+          <input id="sessionName" formControlName="name" type="text" class="form-control" placeholder="session name..." />
+          <small *ngIf="newSessionForm.controls.name?.invalid && newSessionForm.controls.name?.dirty" id="helpId" class="text-danger">required</small>
+        </div>
+        <div class="form-group" [ngClass]="{'has-danger':newSessionForm.controls.presenter?.invalid && newSessionForm.controls.presenter?.dirty}">
+          <label for="eventDate">Presenter:</label>
+          <input id="presenter" formControlName="presenter" type="text" class="form-control" placeholder="presenter..." />
+          <small *ngIf="newSessionForm.controls.presenter?.invalid && newSessionForm.controls.presenter?.dirty" id="helpId" class="text-danger">required</small>
+
+        </div>
+        <div class="form-group" [ngClass]="{'has-danger':newSessionForm.controls.duration?.invalid && newSessionForm.controls.duration?.dirty}">
+          <label for="duration">Duration:</label>
+          <select class="form-control" formControlName="duration">
+            <option value="">select duration...</option>
+            <option value="1">Half Hour</option>
+            <option value="2">1 Hour</option>
+            <option value="3">Half Day</option>
+            <option value="4">Full Day</option>
+          </select>
+          <small *ngIf="newSessionForm.controls.duration?.invalid && newSessionForm.controls.duration?.dirty" id="helpId" class="text-danger">required</small>
+
+        </div>
+        <div class="form-group" [ngClass]="{'has-danger':newSessionForm.controls.level?.invalid && newSessionForm.controls.level?.dirty}">
+          <label for="level">Level:</label>
+          <select class="form-control" formControlName="level">
+            <option value="">select level...</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+          <small *ngIf="newSessionForm.controls.level?.invalid && newSessionForm.controls.level?.dirty" id="helpId" class="text-danger">required</small>
+
+        </div>
+        <div class="form-group" [ngClass]="{'has-danger':newSessionForm.controls.abstract?.invalid && newSessionForm.controls.abstract?.dirty}">
+          <label for="abstract">Abstract:</label>
+          <textarea id="abstract" rows=3 class="form-control" formControlName="abstract" placeholder="abstract..."></textarea>
+          <small *ngIf="newSessionForm.controls.abstract?.invalid && newSessionForm.controls.abstract?.dirty && newSessionForm.controls.abstract?.errors.required"
+            id="helpId" class="text-danger">required</small>
+          <small *ngIf="newSessionForm.controls.abstract?.invalid && newSessionForm.controls.abstract?.dirty && newSessionForm.controls.abstract?.errors.restrictWords"
+            id="helpId" class="text-danger">Invalid Word</small>
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        <button type="submit" class="btn btn-primary" [disabled]="newSessionForm.invalid">Save</button>
+        <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+
+  </form>
+</div>

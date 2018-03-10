@@ -1,0 +1,7 @@
+
+  <div class="card-body" (click)="toggleContent()">
+    <ng-content select="[ev-card-title]"></ng-content>
+  </div>
+ <!-- Content will go here  -->
+ <ng-content select="[ev-card-body]" *ngIf="visible"></ng-content>
+

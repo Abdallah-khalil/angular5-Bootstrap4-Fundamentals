@@ -21,6 +21,8 @@ import { AuthService } from './user/auth.service';
 import { CreateSessionComponent } from './events/event-details/create-session/create-session.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SessionListComponent } from './events/event-details/session-list/session-list.component';
+import { UpvoteComponent } from './events/event-details/session-list/upvote/upvote.component';
+import { VoterService } from './events/event-details/session-list/voter.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { SessionListComponent } from './events/event-details/session-list/sessio
     CreateEventComponent,
     Error404Component,
     CreateSessionComponent,
-    SessionListComponent
+    SessionListComponent,
+    UpvoteComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { SessionListComponent } from './events/event-details/session-list/sessio
     EventsService,
     EventRouteActivatorGuard,
     AuthService,
-    { provide: CHECKDIRTYSTATE, useValue: checkDirtyState }
+    { provide: CHECKDIRTYSTATE, useValue: checkDirtyState },
+    VoterService
   ],
   bootstrap: [AppComponent],
   schemas: []

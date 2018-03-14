@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { ISession } from '../../event.model';
+import { AuthService } from '../../../user/auth.service';
+import { VoterService } from './voter.service';
 
 @Component({
   selector: 'ev-session-list',
@@ -12,7 +14,7 @@ export class SessionListComponent implements OnInit, OnChanges {
   @Input() sortBy: string;
 
   visibleSession: ISession[] = [];
-  constructor() {}
+  constructor(public authSvc: AuthService, private voterSvc: VoterService) {}
 
   ngOnChanges(): void {
     if (this.sessions) {
@@ -21,6 +23,25 @@ export class SessionListComponent implements OnInit, OnChanges {
         ? this.visibleSession.sort(sortByNameAsc)
         : this.visibleSession.sort(sortByVotesDesc);
     }
+  }
+
+  toggleVoters(session: ISession): void {
+
+    if (this.userHasVoted(session)) {
+      this.voterSvc.deleteVoter(session, this.authSvc.currentUser.userName);
+    } else {
+      this.voterSvc.addVoter(session, this.authSvc.currentUser.userName);
+    }
+    if (this.sortBy === 'votes') {
+      this.visibleSession.sort(sortByVotesDesc);
+    }
+  }
+
+  userHasVoted(session: ISession): boolean {
+    return this.voterSvc.userHasVoted(
+      session,
+      this.authSvc.currentUser.userName
+    );
   }
 
   filterSession(): void {
@@ -48,6 +69,5 @@ function sortByNameAsc(s1: ISession, s2: ISession) {
 }
 
 function sortByVotesDesc(s1: ISession, s2: ISession) {
-
   return s2.voters.length - s1.voters.length;
 }
